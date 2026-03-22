@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 课后托管+研学服务平台</title>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9F45', // 暖橙色
+                        secondary: '#64D299', // 浅草绿
+                        neutral: {
+                            100: '#F5F7FA', // 浅灰色
+                            200: '#E4E7EB',
+                            300: '#CBD2D9',
+                            400: '#9AA5B1',
+                            500: '#7B8794',
+                            600: '#616E7C',
+                            700: '#52606D',
+                            800: '#3E4C59',
+                            900: '#323F4B',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 300ms ease-in-out;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-neutral-100 text-neutral-800">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=friendly%20logo%20for%20after%20school%20care%20and%20study%20tour%20platform%2C%20warm%20colors%2C%20professional%2C%20educational&image_size=square" alt="课后托管+研学服务平台" class="h-10 w-auto">
+                <span class="ml-2 text-xl font-bold text-primary hidden sm:block">课后托管+研学服务平台</span>
+            </div>
+            
+            <!-- 桌面端导航菜单 -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-neutral-600 hover:text-primary transition-colors">首页</a>
+                <a href="services.html" class="text-neutral-600 hover:text-primary transition-colors">服务商城</a>
+                <a href="about.html" class="text-neutral-600 hover:text-primary transition-colors">关于我们</a>
+                <a href="faq.html" class="text-neutral-600 hover:text-primary transition-colors">常见问题</a>
+            </div>
+            
+            <!-- 用户操作区 -->
+            <div class="flex items-center space-x-4">
+                <a href="search.html" class="text-neutral-600 hover:text-primary transition-colors">
+                    <i class="fa fa-search text-lg"></i>
+                </a>
+                <a href="notifications.html" class="text-neutral-600 hover:text-primary transition-colors">
+                    <i class="fa fa-bell text-lg"></i>
+                </a>
+                <div class="relative group">
+                    <button class="flex items-center space-x-1 text-neutral-600 hover:text-primary transition-colors focus:outline-none">
+                        <i class="fa fa-user-circle text-lg"></i>
+                        <span class="hidden sm:inline">个人中心</span>
+                        <i class="fa fa-chevron-down text-xs ml-1"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden group-hover:block">
+                        <a href="profile.html" class="block px-4 py-2 text-neutral-700 hover:bg-neutral-100">个人信息</a>
+                        <a href="orders.html" class="block px-4 py-2 text-neutral-700 hover:bg-neutral-100">我的订单</a>
+                        <a href="children.html" class="block px-4 py-2 text-neutral-700 hover:bg-neutral-100">孩子信息</a>
+                        <a href="settings.html" class="block px-4 py-2 text-neutral-700 hover:bg-neutral-100">设置</a>
+                        <div class="border-t border-neutral-200 my-1"></div>
+                        <a href="login.html" class="block px-4 py-2 text-primary hover:bg-neutral-100">退出登录</a>
+                    </div>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-button" class="md:hidden text-neutral-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-neutral-200">
+            <div class="container mx-auto px-4 py-2">
+                <a href="index.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">首页</a>
+                <a href="services.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">服务商城</a>
+                <a href="about.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">关于我们</a>
+                <a href="faq.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">常见问题</a>
+                <div class="border-t border-neutral-200 my-1"></div>
+                <a href="profile.html" class="block py-2 text-primary font-medium">个人中心</a>
+                <a href="orders.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">我的订单</a>
+                <a href="children.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">孩子信息</a>
+                <a href="settings.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">设置</a>
+                <a href="login.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">退出登录</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 个人中心 -->
+        <section class="py-8">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <!-- 侧边栏 -->
+                    <div class="md:w-1/4">
+                        <div class="bg-white rounded-xl shadow-card overflow-hidden mb-6">
+                            <div class="p-6 bg-primary text-white">
+                                <div class="flex items-center">
+                                    <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                                        <i class="fa fa-user text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold">张先生</h3>
+                                        <p class="text-white/80 text-sm">普通会员</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <ul class="space-y-1">
+                                    <li>
+                                        <a href="profile.html" class="flex items-center px-4 py-3 text-primary bg-primary/10 rounded-lg">
+                                            <i class="fa fa-user-circle w-6"></i>
+                                            <span class="ml-3">个人信息</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="orders.html" class="flex items-center px-4 py-3 text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors">
+                                            <i class="fa fa-shopping-cart w-6"></i>
+                                            <span class="ml-3">我的订单</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="children.html" class="flex items-center px-4 py-3 text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors">
+                                            <i class="fa fa-child w-6"></i>
+                                            <span class="ml-3">孩子信息</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="notifications.html" class="flex items-center px-4 py-3 text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors">
+                                            <i class="fa fa-bell w-6"></i>
+                                            <span class="ml-3">消息通知</span>
+                                            <span class="ml-auto bg-primary text-white text-xs px-2 py-0.5 rounded-full">3</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="settings.html" class="flex items-center px-4 py-3 text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors">
+                                            <i class="fa fa-cog w-6"></i>
+                                            <span class="ml-3">账户设置</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="login.html" class="flex items-center px-4 py-3 text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors">
+                                            <i class="fa fa-sign-out w-6"></i>
+                                            <span class="ml-3">退出登录</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 主内容区 -->
+                    <div class="md:w-3/4">
+                        <!-- 个人信息 -->
+                        <div class="bg-white rounded-xl shadow-card p-6 mb-6">
+                            <h2 class="text-xl font-bold mb-6">个人信息</h2>
+                            <form>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <label for="name" class="block text-sm font-medium text-neutral-700 mb-1">姓名</label>
+                                        <input type="text" id="name" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" value="张先生" required>
+                                    </div>
+                                    <div>
+                                        <label for="phone" class="block text-sm font-medium text-neutral-700 mb-1">手机号</label>
+                                        <input type="tel" id="phone" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" value="138****8888" required>
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium text-neutral-700 mb-1">邮箱</label>
+                                        <input type="email" id="email" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" value="example@mail.com">
+                                    </div>
+                                    <div>
+                                        <label for="address" class="block text-sm font-medium text-neutral-700 mb-1">地址</label>
+                                        <input type="text" id="address" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" value="北京市朝阳区建国路88号">
+                                    </div>
+                                </div>
+                                <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">保存修改</button>
+                            </form>
+                        </div>
+                        
+                        <!-- 我的孩子 -->
+                        <div class="bg-white rounded-xl shadow-card p-6 mb-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-xl font-bold">我的孩子</h2>
+                                <a href="children.html" class="text-primary hover:underline">管理孩子信息</a>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center p-4 border border-neutral-200 rounded-lg">
+                                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                                        <i class="fa fa-child text-xl text-primary"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">张小明</h3>
+                                        <p class="text-sm text-neutral-500">小学三年级 | 10岁</p>
+                                    </div>
+                                    <a href="children.html" class="text-primary hover:underline">编辑</a>
+                                </div>
+                                <div class="flex items-center p-4 border border-neutral-200 rounded-lg">
+                                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                                        <i class="fa fa-child text-xl text-primary"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">张小花</h3>
+                                        <p class="text-sm text-neutral-500">小学一年级 | 7岁</p>
+                                    </div>
+                                    <a href="children.html" class="text-primary hover:underline">编辑</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 最近订单 -->
+                        <div class="bg-white rounded-xl shadow-card p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-xl font-bold">最近订单</h2>
+                                <a href="orders.html" class="text-primary hover:underline">查看全部订单</a>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="p-4 border border-neutral-200 rounded-lg">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h3 class="font-semibold">阳光少年课后托管中心</h3>
+                                        <span class="text-green-500 text-sm">已支付</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm text-neutral-500 mb-3">
+                                        <span>订单号: 20230615001</span>
+                                        <span>2023-06-15</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-primary font-bold">¥1280.00</span>
+                                        <a href="order-detail.html" class="text-primary hover:underline">查看详情</a>
+                                    </div>
+                                </div>
+                                <div class="p-4 border border-neutral-200 rounded-lg">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h3 class="font-semibold">自然科学探索研学营</h3>
+                                        <span class="text-green-500 text-sm">已支付</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm text-neutral-500 mb-3">
+                                        <span>订单号: 20230720002</span>
+                                        <span>2023-07-20</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-primary font-bold">¥3680.00</span>
+                                        <a href="order-detail.html" class="text-primary hover:underline">查看详情</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="bg-neutral-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">关于我们</h3>
+                    <p class="text-neutral-400 text-sm">课后托管+研学服务平台致力于为家长提供优质的课后托管和研学服务，帮助孩子全面发展，让家长更放心。</p>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-neutral-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="services.html" class="text-neutral-400 hover:text-white transition-colors">服务商城</a></li>
+                        <li><a href="about.html" class="text-neutral-400 hover:text-white transition-colors">关于我们</a></li>
+                        <li><a href="faq.html" class="text-neutral-400 hover:text-white transition-colors">常见问题</a></li>
+                        <li><a href="contact.html" class="text-neutral-400 hover:text-white transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 服务分类 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">服务分类</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="services.html?filter=托管" class="text-neutral-400 hover:text-white transition-colors">课后托管</a></li>
+                        <li><a href="services.html?filter=研学" class="text-neutral-400 hover:text-white transition-colors">假期研学</a></li>
+                        <li><a href="services.html?filter=兴趣" class="text-neutral-400 hover:text-white transition-colors">兴趣辅导</a></li>
+                        <li><a href="services.html?filter=亲子" class="text-neutral-400 hover:text-white transition-colors">亲子活动</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">联系方式</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fa fa-phone mr-2 text-primary"></i>
+                            <span class="text-neutral-400">400-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope mr-2 text-primary"></i>
+                            <span class="text-neutral-400">contact@example.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker mr-2 text-primary"></i>
+                            <span class="text-neutral-400">北京市朝阳区建国路88号</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-neutral-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-neutral-500 text-sm mb-4 md:mb-0">© 2023 课后托管+研学服务平台. 保留所有权利.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weixin text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weibo text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-qq text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

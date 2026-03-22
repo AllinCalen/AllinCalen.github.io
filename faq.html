@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常见问题 - 课后托管+研学服务平台</title>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9F45', // 暖橙色
+                        secondary: '#64D299', // 浅草绿
+                        neutral: {
+                            100: '#F5F7FA', // 浅灰色
+                            200: '#E4E7EB',
+                            300: '#CBD2D9',
+                            400: '#9AA5B1',
+                            500: '#7B8794',
+                            600: '#616E7C',
+                            700: '#52606D',
+                            800: '#3E4C59',
+                            900: '#323F4B',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 300ms ease-in-out;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-neutral-800">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f9c1618de91049948ad20698842ef9ea~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=KBC5h9s1UOWqWaWSwd040OVeR6U%3D" alt="课后托管+研学服务平台" class="h-10 w-auto">
+                <span class="ml-2 text-xl font-bold text-primary hidden sm:block">课后托管+研学服务平台</span>
+            </div>
+            
+            <!-- 桌面端导航菜单 -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-neutral-600 hover:text-primary transition-colors relative group">
+                    首页
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="services.html" class="text-neutral-600 hover:text-primary transition-colors relative group">
+                    服务商城
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="about.html" class="text-neutral-600 hover:text-primary transition-colors relative group">
+                    关于我们
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="faq.html" class="text-primary font-medium relative">
+                    常见问题
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></span>
+                </a>
+            </div>
+            
+            <!-- 用户操作区 -->
+            <div class="flex items-center space-x-4">
+                <a href="search.html" class="text-neutral-600 hover:text-primary transition-colors group">
+                    <i class="fa fa-search text-lg transition-transform duration-300 group-hover:scale-110"></i>
+                </a>
+                <a href="notifications.html" class="text-neutral-600 hover:text-primary transition-colors group">
+                    <i class="fa fa-bell text-lg transition-transform duration-300 group-hover:scale-110"></i>
+                </a>
+                <a href="login.html" class="hidden sm:flex items-center space-x-1 text-neutral-600 hover:text-primary transition-colors group">
+                    <i class="fa fa-user-circle text-lg transition-transform duration-300 group-hover:scale-110"></i>
+                    <span>登录/注册</span>
+                </a>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-button" class="md:hidden text-neutral-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-neutral-200">
+            <div class="container mx-auto px-4 py-2">
+                <a href="index.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">首页</a>
+                <a href="services.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">服务商城</a>
+                <a href="about.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">关于我们</a>
+                <a href="faq.html" class="block py-2 text-primary font-medium">常见问题</a>
+                <a href="login.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">登录/注册</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 页面标题 -->
+        <section class="bg-neutral-100 py-8">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold text-center">常见问题</h1>
+                <p class="text-neutral-600 text-center mt-2">解答您关于课后托管和研学服务的疑问</p>
+            </div>
+        </section>
+
+        <!-- 常见问题内容 -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto">
+                    <!-- 问题 1 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何选择适合孩子的托管或研学服务？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">您可以根据孩子的年龄、兴趣爱好、学习需求以及家庭位置等因素来选择适合的服务。我们的平台提供了详细的筛选功能，可以帮助您快速找到符合需求的托管或研学服务。同时，您也可以查看其他家长的评价和反馈，了解服务质量。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 2 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何报名和支付？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">报名流程非常简单：1. 注册并登录平台；2. 完善孩子信息；3. 选择心仪的服务并点击"立即报名"；4. 确认订单信息；5. 通过微信支付完成付款。支付成功后，您将收到订单确认信息，同时服务提供方也会收到通知并与您联系。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 3 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何查看孩子在托管或研学活动中的实时动态？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">登录平台后，进入"个人中心"-"实时动态"页面，您可以查看孩子在托管或研学活动中的照片、视频和文字更新。服务提供方会定期上传孩子的活动情况，让您随时了解孩子的状态。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 4 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何申请退款？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">如需申请退款，请登录平台，进入"个人中心"-"订单管理"，找到相应订单并点击"申请退款"按钮。根据服务类型和距离服务开始的时间，退款政策会有所不同。一般来说，服务开始前7天以上申请退款可获得全额退款，服务开始前3-7天可获得50%退款，服务开始前3天内不予退款。具体以各服务提供方的退款政策为准。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 5 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">平台如何保障孩子的安全？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">我们非常重视孩子的安全问题：1. 所有合作机构均经过严格审核，具备相关资质；2. 所有参加托管和研学活动的孩子均购买意外险；3. 服务提供方需定期上传孩子的活动动态；4. 研学活动配备专业导师和安全员；5. 托管中心安装监控设备，确保孩子安全。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 6 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">托管服务包含哪些内容？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">托管服务通常包含以下内容：1. 作业辅导：专业老师帮助孩子完成学校作业；2. 兴趣培养：开展各种兴趣活动，如绘画、手工、阅读等；3. 营养晚餐：提供营养均衡的晚餐；4. 安全接送：负责孩子的上下学接送；5. 课后活动：组织各种有益的课后活动，丰富孩子的课余生活。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 7 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">研学活动的师资情况如何？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">我们的研学活动配备专业的导师团队，包括：1. 学科专家：如自然科学、历史文化等领域的专业人士；2. 教育工作者：具备丰富教学经验的教师；3. 安全员：负责孩子的安全保障；4. 生活老师：照顾孩子的日常生活。所有导师均经过严格筛选和培训，确保活动的质量和安全。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 8 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何成为平台的合作机构？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">如果您是托管机构或研学服务提供商，想要成为我们的合作机构，可以通过以下步骤申请：1. 访问平台官网，点击"合作申请"；2. 填写合作申请表，提交相关资质证明；3. 平台会对申请进行审核，审核通过后会与您联系；4. 签署合作协议，完成入驻流程。我们欢迎优质的教育服务机构加入我们的平台，共同为孩子提供更好的教育服务。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 9 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">平台是否提供定制化的服务？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">是的，我们平台提供定制化的服务。如果您有特殊的需求，可以联系平台客服，我们会根据您的需求为您推荐合适的服务提供商，或者协助您与服务提供商沟通，定制专属的服务方案。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 10 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何联系平台客服？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">您可以通过以下方式联系平台客服：1. 电话：400-123-4567；2. 邮箱：contact@example.com；3. 在线客服：登录平台后，点击右下角的"在线客服"按钮；4. 微信公众号：关注"课后托管研学平台"公众号，发送消息咨询。客服工作时间为周一至周日 9:00-18:00。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我们 -->
+        <section class="py-12 bg-primary/10">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <div class="p-8 bg-primary text-white">
+                            <h2 class="text-2xl font-bold mb-6">联系我们</h2>
+                            <p class="mb-8">如果您有任何问题或建议，欢迎随时联系我们，我们将竭诚为您服务。</p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i class="fa fa-map-marker text-xl mt-1 mr-4"></i>
+                                    <p>北京市朝阳区建国路88号</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fa fa-phone text-xl mr-4"></i>
+                                    <p>400-123-4567</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fa fa-envelope text-xl mr-4"></i>
+                                    <p>contact@example.com</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fa fa-clock-o text-xl mr-4"></i>
+                                    <p>周一至周日 9:00-18:00</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 flex space-x-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                                    <i class="fa fa-weixin text-white"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                                    <i class="fa fa-weibo text-white"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                                    <i class="fa fa-qq text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold mb-6">在线咨询</h3>
+                            <form>
+                                <div class="mb-4">
+                                    <label for="name" class="block text-sm font-medium text-neutral-700 mb-1">姓名</label>
+                                    <input type="text" id="name" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的姓名">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="phone" class="block text-sm font-medium text-neutral-700 mb-1">电话</label>
+                                    <input type="tel" id="phone" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的电话">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="message" class="block text-sm font-medium text-neutral-700 mb-1">咨询内容</label>
+                                    <textarea id="message" rows="4" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的咨询内容"></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-primary text-white font-medium py-2 rounded-lg hover:bg-primary/90 transition-colors">提交</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="bg-neutral-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">关于我们</h3>
+                    <p class="text-neutral-400 text-sm">课后托管+研学服务平台致力于为家长提供优质的课后托管和研学服务，帮助孩子全面发展，让家长更放心。</p>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-neutral-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="services.html" class="text-neutral-400 hover:text-white transition-colors">服务商城</a></li>
+                        <li><a href="about.html" class="text-neutral-400 hover:text-white transition-colors">关于我们</a></li>
+                        <li><a href="faq.html" class="text-neutral-400 hover:text-white transition-colors">常见问题</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 服务分类 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">服务分类</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="services.html?filter=托管" class="text-neutral-400 hover:text-white transition-colors">课后托管</a></li>
+                        <li><a href="services.html?filter=研学" class="text-neutral-400 hover:text-white transition-colors">假期研学</a></li>
+                        <li><a href="services.html?filter=兴趣" class="text-neutral-400 hover:text-white transition-colors">兴趣辅导</a></li>
+                        <li><a href="services.html?filter=亲子" class="text-neutral-400 hover:text-white transition-colors">亲子活动</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">联系方式</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fa fa-phone mr-2 text-primary"></i>
+                            <span class="text-neutral-400">400-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope mr-2 text-primary"></i>
+                            <span class="text-neutral-400">contact@example.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker mr-2 text-primary"></i>
+                            <span class="text-neutral-400">北京市朝阳区建国路88号</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-neutral-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-neutral-500 text-sm mb-4 md:mb-0">© 2023 课后托管+研学服务平台. 保留所有权利.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weixin text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weibo text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-qq text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 常见问题折叠功能
+        (function() {
+            const questions = document.querySelectorAll('.faq-question');
+            
+            questions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('i');
+                    
+                    // 切换回答显示/隐藏
+                    answer.classList.toggle('hidden');
+                    
+                    // 切换图标旋转
+                    if (answer.classList.contains('hidden')) {
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        })();
+        
+        // 返回顶部按钮
+        (function() {
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            // 监听滚动事件
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            // 点击返回顶部
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>报名 - 阳光少年课后托管中心</title>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9F45', // 暖橙色
+                        secondary: '#64D299', // 浅草绿
+                        neutral: {
+                            100: '#F5F7FA', // 浅灰色
+                            200: '#E4E7EB',
+                            300: '#CBD2D9',
+                            400: '#9AA5B1',
+                            500: '#7B8794',
+                            600: '#616E7C',
+                            700: '#52606D',
+                            800: '#3E4C59',
+                            900: '#323F4B',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 300ms ease-in-out;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-neutral-100 text-neutral-800">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f9c1618de91049948ad20698842ef9ea~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=KBC5h9s1UOWqWaWSwd040OVeR6U%3D" alt="课后托管+研学服务平台" class="h-10 w-auto">
+                <span class="ml-2 text-xl font-bold text-primary hidden sm:block">课后托管+研学服务平台</span>
+            </div>
+            
+            <!-- 桌面端导航菜单 -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-neutral-600 hover:text-primary transition-colors">首页</a>
+                <a href="services.html" class="text-primary font-medium">服务商城</a>
+                <a href="about.html" class="text-neutral-600 hover:text-primary transition-colors">关于我们</a>
+                <a href="faq.html" class="text-neutral-600 hover:text-primary transition-colors">常见问题</a>
+            </div>
+            
+            <!-- 用户操作区 -->
+            <div class="flex items-center space-x-4">
+                <a href="search.html" class="text-neutral-600 hover:text-primary transition-colors">
+                    <i class="fa fa-search text-lg"></i>
+                </a>
+                <a href="notifications.html" class="text-neutral-600 hover:text-primary transition-colors">
+                    <i class="fa fa-bell text-lg"></i>
+                </a>
+                <a href="login.html" class="hidden sm:flex items-center space-x-1 text-neutral-600 hover:text-primary transition-colors">
+                    <i class="fa fa-user-circle text-lg"></i>
+                    <span>登录/注册</span>
+                </a>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-button" class="md:hidden text-neutral-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-neutral-200">
+            <div class="container mx-auto px-4 py-2">
+                <a href="index.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">首页</a>
+                <a href="services.html" class="block py-2 text-primary font-medium">服务商城</a>
+                <a href="about.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">关于我们</a>
+                <a href="faq.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">常见问题</a>
+                <a href="login.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">登录/注册</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 报名流程 -->
+        <section class="py-8">
+            <div class="container mx-auto px-4">
+                <!-- 面包屑导航 -->
+                <div class="flex items-center text-sm mb-6">
+                    <a href="index.html" class="text-neutral-600 hover:text-primary transition-colors">首页</a>
+                    <i class="fa fa-chevron-right text-neutral-400 mx-2"></i>
+                    <a href="services.html" class="text-neutral-600 hover:text-primary transition-colors">服务商城</a>
+                    <i class="fa fa-chevron-right text-neutral-400 mx-2"></i>
+                    <a href="service-detail.html" class="text-neutral-600 hover:text-primary transition-colors">阳光少年课后托管中心</a>
+                    <i class="fa fa-chevron-right text-neutral-400 mx-2"></i>
+                    <span class="text-primary">报名</span>
+                </div>
+                
+                <!-- 报名步骤 -->
+                <div class="flex justify-between items-center mb-8">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mb-2">1</div>
+                        <span class="text-sm font-medium">选择服务</span>
+                    </div>
+                    <div class="flex-1 h-1 bg-neutral-200 mx-2">
+                        <div class="h-full bg-primary w-1/3"></div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-neutral-200 text-neutral-600 flex items-center justify-center mb-2">2</div>
+                        <span class="text-sm font-medium">填写信息</span>
+                    </div>
+                    <div class="flex-1 h-1 bg-neutral-200 mx-2"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-neutral-200 text-neutral-600 flex items-center justify-center mb-2">3</div>
+                        <span class="text-sm font-medium">确认订单</span>
+                    </div>
+                    <div class="flex-1 h-1 bg-neutral-200 mx-2"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full bg-neutral-200 text-neutral-600 flex items-center justify-center mb-2">4</div>
+                        <span class="text-sm font-medium">完成支付</span>
+                    </div>
+                </div>
+                
+                <!-- 服务信息 -->
+                <div class="bg-white rounded-xl shadow-card p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-4">阳光少年课后托管中心</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/3">
+                            <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f9c1618de91049948ad20698842ef9ea~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=KBC5h9s1UOWqWaWSwd040OVeR6U%3D" alt="阳光少年课后托管中心" class="w-full h-48 object-cover rounded-lg">
+                        </div>
+                        <div class="md:w-2/3">
+                            <div class="flex items-center text-neutral-600 mb-3">
+                                <i class="fa fa-map-marker mr-2 text-primary"></i>
+                                <span>北京市朝阳区建国路88号</span>
+                            </div>
+                            <div class="flex items-center text-neutral-600 mb-3">
+                                <i class="fa fa-clock-o mr-2 text-primary"></i>
+                                <span>周一至周五 15:30-18:30</span>
+                            </div>
+                            <div class="flex items-center text-neutral-600 mb-4">
+                                <i class="fa fa-users mr-2 text-primary"></i>
+                                <span>在读200+</span>
+                            </div>
+                            <div class="border-t border-neutral-200 pt-4">
+                                <h3 class="font-semibold mb-3">服务类型</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center p-3 border border-neutral-200 rounded-lg hover:border-primary cursor-pointer transition-colors">
+                                        <input type="radio" id="service1" name="service" class="mr-3">
+                                        <div class="flex-1">
+                                            <label for="service1" class="font-medium">基础托管</label>
+                                            <p class="text-sm text-neutral-500">包含作业辅导、安全接送</p>
+                                        </div>
+                                        <span class="text-primary font-bold">¥1280/月</span>
+                                    </div>
+                                    <div class="flex items-center p-3 border border-neutral-200 rounded-lg hover:border-primary cursor-pointer transition-colors">
+                                        <input type="radio" id="service2" name="service" class="mr-3">
+                                        <div class="flex-1">
+                                            <label for="service2" class="font-medium">托管+兴趣课</label>
+                                            <p class="text-sm text-neutral-500">包含作业辅导、兴趣课程、安全接送</p>
+                                        </div>
+                                        <span class="text-primary font-bold">¥1580/月</span>
+                                    </div>
+                                    <div class="flex items-center p-3 border border-primary rounded-lg bg-primary/5 cursor-pointer">
+                                        <input type="radio" id="service3" name="service" class="mr-3" checked>
+                                        <div class="flex-1">
+                                            <label for="service3" class="font-medium">托管+兴趣课+晚餐</label>
+                                            <p class="text-sm text-neutral-500">包含作业辅导、兴趣课程、营养晚餐、安全接送</p>
+                                        </div>
+                                        <span class="text-primary font-bold">¥1880/月</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 孩子信息 -->
+                <div class="bg-white rounded-xl shadow-card p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-4">选择孩子</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center p-4 border border-primary rounded-lg bg-primary/5">
+                            <input type="radio" id="child1" name="child" class="mr-3" checked>
+                            <div class="flex-1">
+                                <label for="child1" class="font-medium">张小明</label>
+                                <p class="text-sm text-neutral-500">小学三年级 | 10岁</p>
+                            </div>
+                            <a href="children.html" class="text-primary hover:underline">添加孩子</a>
+                        </div>
+                        <div class="flex items-center p-4 border border-neutral-200 rounded-lg hover:border-primary cursor-pointer transition-colors">
+                            <input type="radio" id="child2" name="child" class="mr-3">
+                            <div class="flex-1">
+                                <label for="child2" class="font-medium">张小花</label>
+                                <p class="text-sm text-neutral-500">小学一年级 | 7岁</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 时间设置 -->
+                <div class="bg-white rounded-xl shadow-card p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-4">时间设置</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="start-date" class="block text-sm font-medium text-neutral-700 mb-1">开始日期</label>
+                            <input type="date" id="start-date" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        <div>
+                            <label for="duration" class="block text-sm font-medium text-neutral-700 mb-1">托管时长</label>
+                            <select id="duration" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                                <option value="1">1个月</option>
+                                <option value="3" selected>3个月</option>
+                                <option value="6">6个月</option>
+                                <option value="12">12个月</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 联系人信息 -->
+                <div class="bg-white rounded-xl shadow-card p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-4">联系人信息</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="contact-name" class="block text-sm font-medium text-neutral-700 mb-1">姓名</label>
+                            <input type="text" id="contact-name" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" value="张先生" required>
+                        </div>
+                        <div>
+                            <label for="contact-phone" class="block text-sm font-medium text-neutral-700 mb-1">手机号</label>
+                            <input type="tel" id="contact-phone" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" value="138****8888" required>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="note" class="block text-sm font-medium text-neutral-700 mb-1">备注信息</label>
+                            <textarea id="note" rows="3" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入特殊要求或其他需要说明的事项"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 订单信息 -->
+                <div class="bg-white rounded-xl shadow-card p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-4">订单信息</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-neutral-600">
+                            <span>服务费用</span>
+                            <span>¥1880.00/月</span>
+                        </div>
+                        <div class="flex justify-between text-neutral-600">
+                            <span>托管时长</span>
+                            <span>3个月</span>
+                        </div>
+                        <div class="flex justify-between text-neutral-600">
+                            <span>总计</span>
+                            <span>¥5640.00</span>
+                        </div>
+                        <div class="border-t border-neutral-200 pt-3 mt-3">
+                            <div class="flex justify-between font-semibold text-lg">
+                                <span>应付金额</span>
+                                <span class="text-primary">¥5640.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 提交按钮 -->
+                <div class="flex justify-end">
+                    <button class="px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors">提交订单</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="bg-neutral-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">关于我们</h3>
+                    <p class="text-neutral-400 text-sm">课后托管+研学服务平台致力于为家长提供优质的课后托管和研学服务，帮助孩子全面发展，让家长更放心。</p>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-neutral-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="services.html" class="text-neutral-400 hover:text-white transition-colors">服务商城</a></li>
+                        <li><a href="about.html" class="text-neutral-400 hover:text-white transition-colors">关于我们</a></li>
+                        <li><a href="faq.html" class="text-neutral-400 hover:text-white transition-colors">常见问题</a></li>
+                        <li><a href="contact.html" class="text-neutral-400 hover:text-white transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 服务分类 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">服务分类</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="services.html?filter=托管" class="text-neutral-400 hover:text-white transition-colors">课后托管</a></li>
+                        <li><a href="services.html?filter=研学" class="text-neutral-400 hover:text-white transition-colors">假期研学</a></li>
+                        <li><a href="services.html?filter=兴趣" class="text-neutral-400 hover:text-white transition-colors">兴趣辅导</a></li>
+                        <li><a href="services.html?filter=亲子" class="text-neutral-400 hover:text-white transition-colors">亲子活动</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">联系方式</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fa fa-phone mr-2 text-primary"></i>
+                            <span class="text-neutral-400">400-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope mr-2 text-primary"></i>
+                            <span class="text-neutral-400">contact@example.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker mr-2 text-primary"></i>
+                            <span class="text-neutral-400">北京市朝阳区建国路88号</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-neutral-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-neutral-500 text-sm mb-4 md:mb-0">© 2023 课后托管+研学服务平台. 保留所有权利.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weixin text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weibo text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-qq text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

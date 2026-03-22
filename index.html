@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课后托管+研学服务平台 - 家长端</title>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9F45', // 暖橙色
+                        secondary: '#64D299', // 浅草绿
+                        neutral: {
+                            100: '#F5F7FA', // 浅灰色
+                            200: '#E4E7EB',
+                            300: '#CBD2D9',
+                            400: '#9AA5B1',
+                            500: '#7B8794',
+                            600: '#616E7C',
+                            700: '#52606D',
+                            800: '#3E4C59',
+                            900: '#323F4B',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 300ms ease-in-out;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+            }
+            .btn-hover {
+                @apply transition-all duration-300 hover:shadow-lg hover:scale-105;
+            }
+            .fade-in {
+                animation: fadeIn 0.5s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .slide-in-left {
+                animation: slideInLeft 0.5s ease-in-out;
+            }
+            @keyframes slideInLeft {
+                from { opacity: 0; transform: translateX(-20px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+            .slide-in-right {
+                animation: slideInRight 0.5s ease-in-out;
+            }
+            @keyframes slideInRight {
+                from { opacity: 0; transform: translateX(20px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-neutral-800">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f9c1618de91049948ad20698842ef9ea~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=KBC5h9s1UOWqWaWSwd040OVeR6U%3D" alt="课后托管+研学服务平台" class="h-10 w-auto">
+                <span class="ml-2 text-xl font-bold text-primary hidden sm:block">课后托管+研学服务平台</span>
+            </div>
+            
+            <!-- 桌面端导航菜单 -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-primary font-medium relative">
+                    首页
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></span>
+                </a>
+                <a href="services.html" class="text-neutral-600 hover:text-primary transition-colors relative group">
+                    服务商城
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="about.html" class="text-neutral-600 hover:text-primary transition-colors relative group">
+                    关于我们
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="faq.html" class="text-neutral-600 hover:text-primary transition-colors relative group">
+                    常见问题
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+            
+            <!-- 用户操作区 -->
+            <div class="flex items-center space-x-4">
+                <a href="search.html" class="text-neutral-600 hover:text-primary transition-colors group">
+                    <i class="fa fa-search text-lg transition-transform duration-300 group-hover:scale-110"></i>
+                </a>
+                <a href="notifications.html" class="text-neutral-600 hover:text-primary transition-colors group">
+                    <i class="fa fa-bell text-lg transition-transform duration-300 group-hover:scale-110"></i>
+                </a>
+                <a href="login.html" class="hidden sm:flex items-center space-x-1 text-neutral-600 hover:text-primary transition-colors group">
+                    <i class="fa fa-user-circle text-lg transition-transform duration-300 group-hover:scale-110"></i>
+                    <span>登录/注册</span>
+                </a>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-button" class="md:hidden text-neutral-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-neutral-200">
+            <div class="container mx-auto px-4 py-2">
+                <a href="index.html" class="block py-2 text-primary font-medium">首页</a>
+                <a href="services.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">服务商城</a>
+                <a href="about.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">关于我们</a>
+                <a href="faq.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">常见问题</a>
+                <a href="login.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">登录/注册</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 轮播图区域 -->
+        <section class="relative bg-neutral-100 overflow-hidden" style="height: 250px; min-height: 200px;">
+            <div id="carousel" class="h-full">
+                <!-- 轮播图项 1 -->
+                <div class="carousel-item absolute inset-0 transition-opacity duration-1000 opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80 mix-blend-multiply"></div>
+                    <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/ed9502adbbe74cbc8069ec2999bf5b9b~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=VEb1jr76MRbc0X0zBPHkdtoy8Fs%3D" alt="研学活动" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="container mx-auto px-4 h-full flex flex-col justify-center items-start">
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-shadow mb-4 max-w-lg">探索自然科学，激发孩子好奇心</h2>
+                        <p class="text-base md:text-lg text-white/90 mb-6 max-w-lg">专业导师带队，安全保障，让孩子在实践中学习成长</p>
+                        <a href="services.html" class="bg-white text-primary font-medium px-4 py-2 rounded-full hover:bg-neutral-100 transition-colors shadow-lg text-sm md:text-base btn-hover">立即报名</a>
+                    </div>
+                </div>
+                
+                <!-- 轮播图项 2 -->
+                <div class="carousel-item absolute inset-0 transition-opacity duration-1000 opacity-0">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80 mix-blend-multiply"></div>
+                    <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f9c1618de91049948ad20698842ef9ea~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=KBC5h9s1UOWqWaWSwd040OVeR6U%3D" alt="课后托管" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="container mx-auto px-4 h-full flex flex-col justify-center items-start">
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-shadow mb-4 max-w-lg">专业课后托管，让家长更放心</h2>
+                        <p class="text-base md:text-lg text-white/90 mb-6 max-w-lg">作业辅导、兴趣培养、安全接送，一站式解决课后难题</p>
+                        <a href="services.html" class="bg-white text-primary font-medium px-4 py-2 rounded-full hover:bg-neutral-100 transition-colors shadow-lg text-sm md:text-base btn-hover">了解详情</a>
+                    </div>
+                </div>
+                
+                <!-- 轮播图项 3 -->
+                <div class="carousel-item absolute inset-0 transition-opacity duration-1000 opacity-0">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80 mix-blend-multiply"></div>
+                    <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/2942bb4b90f5435ca35e1fff3f149260~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755542&x-signature=wG3%2B8mOVeLQswFGCzkU25P4EdJc%3D" alt="兴趣辅导" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="container mx-auto px-4 h-full flex flex-col justify-center items-start">
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-shadow mb-4 max-w-lg">多元化兴趣课程，发掘孩子潜能</h2>
+                        <p class="text-base md:text-lg text-white/90 mb-6 max-w-lg">艺术、音乐、体育等多种课程，专业教师指导，全面发展</p>
+                        <a href="services.html" class="bg-white text-primary font-medium px-4 py-2 rounded-full hover:bg-neutral-100 transition-colors shadow-lg text-sm md:text-base btn-hover">课程预约</a>
+                    </div>
+                </div>
+                
+                <!-- 轮播图控制按钮 -->
+                <button class="carousel-control absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/50 transition-colors" data-direction="prev">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <button class="carousel-control absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/50 transition-colors" data-direction="next">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+                
+                <!-- 轮播图指示器 -->
+                <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                    <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors" data-index="0"></button>
+                    <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors" data-index="1"></button>
+                    <button class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors" data-index="2"></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心服务入口 -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 animate-on-scroll">我们的服务</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- 服务入口 1：课后托管 -->
+                    <a href="services.html?filter=托管" class="flex flex-col items-center p-6 bg-neutral-100 rounded-xl card-hover animate-on-scroll">
+                        <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                            <i class="fa fa-book text-2xl text-primary"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-center">课后托管</h3>
+                        <p class="text-sm text-neutral-500 text-center mt-2">作业辅导·兴趣培养·安全接送</p>
+                    </a>
+                    
+                    <!-- 服务入口 2：假期研学 -->
+                    <a href="services.html?filter=研学" class="flex flex-col items-center p-6 bg-neutral-100 rounded-xl card-hover animate-on-scroll">
+                        <div class="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
+                            <i class="fa fa-mountain text-2xl text-secondary"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-center">假期研学</h3>
+                        <p class="text-sm text-neutral-500 text-center mt-2">自然探索·文化体验·实践学习</p>
+                    </a>
+                    
+                    <!-- 服务入口 3：兴趣辅导 -->
+                    <a href="services.html?filter=兴趣" class="flex flex-col items-center p-6 bg-neutral-100 rounded-xl card-hover animate-on-scroll">
+                        <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                            <i class="fa fa-paint-brush text-2xl text-primary"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-center">兴趣辅导</h3>
+                        <p class="text-sm text-neutral-500 text-center mt-2">艺术·音乐·体育·科技</p>
+                    </a>
+                    
+                    <!-- 服务入口 4：亲子活动 -->
+                    <a href="services.html?filter=亲子" class="flex flex-col items-center p-6 bg-neutral-100 rounded-xl card-hover animate-on-scroll">
+                        <div class="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
+                            <i class="fa fa-users text-2xl text-secondary"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-center">亲子活动</h3>
+                        <p class="text-sm text-neutral-500 text-center mt-2">互动体验·情感交流·共同成长</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 热门推荐 -->
+        <section class="py-12 bg-neutral-100">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold animate-on-scroll">热门推荐</h2>
+                    <div class="flex space-x-2">
+                        <button class="sort-btn px-4 py-2 rounded-full bg-primary text-white" data-sort="popular">热门</button>
+                        <button class="sort-btn px-4 py-2 rounded-full bg-white text-neutral-600 hover:bg-neutral-200 transition-colors" data-sort="distance">距离</button>
+                        <button class="sort-btn px-4 py-2 rounded-full bg-white text-neutral-600 hover:bg-neutral-200 transition-colors" data-sort="rating">好评</button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="recommendations">
+                    <!-- 推荐项 1 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-card card-hover animate-on-scroll">
+                        <div class="relative">
+                            <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f9c1618de91049948ad20698842ef9ea~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=KBC5h9s1UOWqWaWSwd040OVeR6U%3D" alt="优质课后托管" class="w-full h-40 sm:h-48 object-cover">
+                            <span class="absolute top-3 left-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded">托管</span>
+                            <span class="absolute top-3 right-3 bg-white text-primary text-xs font-medium px-2 py-1 rounded-full">4.9分</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-bold mb-2"><a href="service-detail.html" class="hover:text-primary transition-colors"></a>阳光少年课后托管中心</a></h3>
+                            <div class="flex items-center text-sm text-neutral-500 mb-3">
+                                <i class="fa fa-map-marker mr-1"></i>
+                                <span>距离2.5km</span>
+                                <span class="mx-2">|</span>
+                                <i class="fa fa-users mr-1"></i>
+                                <span>在读200+</span>
+                            </div>
+                            <p class="text-neutral-600 text-sm mb-4 line-clamp-2">专业师资，小班教学，提供作业辅导、兴趣培养、营养晚餐和安全接送服务。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-bold text-xl">¥1280<span class="text-sm font-normal text-neutral-500">/月起</span></span>
+                                <a href="service-detail.html" class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-primary/90 transition-colors btn-hover">立即报名</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 推荐项 2 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-card card-hover animate-on-scroll">
+                        <div class="relative">
+                            <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/ed9502adbbe74cbc8069ec2999bf5b9b~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=VEb1jr76MRbc0X0zBPHkdtoy8Fs%3D" alt="自然科学研学营" class="w-full h-40 sm:h-48 object-cover">
+                            <span class="absolute top-3 left-3 bg-secondary text-white text-xs font-medium px-2 py-1 rounded">研学</span>
+                            <span class="absolute top-3 right-3 bg-white text-primary text-xs font-medium px-2 py-1 rounded-full">4.8分</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-bold mb-2"><a href="service-detail.html" class="hover:text-primary transition-colors"></a>自然科学探索研学营</a></h3>
+                            <div class="flex items-center text-sm text-neutral-500 mb-3">
+                                <i class="fa fa-calendar mr-1"></i>
+                                <span>暑期7天6晚</span>
+                                <span class="mx-2">|</span>
+                                <i class="fa fa-users mr-1"></i>
+                                <span>限额30人</span>
+                            </div>
+                            <p class="text-neutral-600 text-sm mb-4 line-clamp-2">专业自然科学导师带队，探索森林生态系统，进行标本采集和实验，培养科学思维。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-bold text-xl">¥3680<span class="text-sm font-normal text-neutral-500">/人</span></span>
+                                <a href="service-detail.html" class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-primary/90 transition-colors btn-hover">立即报名</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 推荐项 3 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-card card-hover animate-on-scroll">
+                        <div class="relative">
+                            <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/2942bb4b90f5435ca35e1fff3f149260~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755542&x-signature=wG3%2B8mOVeLQswFGCzkU25P4EdJc%3D" alt="少儿艺术培训" class="w-full h-40 sm:h-48 object-cover">
+                            <span class="absolute top-3 left-3 bg-primary text-white text-xs font-medium px-2 py-1 rounded">兴趣</span>
+                            <span class="absolute top-3 right-3 bg-white text-primary text-xs font-medium px-2 py-1 rounded-full">4.7分</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-bold mb-2"><a href="service-detail.html" class="hover:text-primary transition-colors"></a>童星艺术培训中心</a></h3>
+                            <div class="flex items-center text-sm text-neutral-500 mb-3">
+                                <i class="fa fa-map-marker mr-1"></i>
+                                <span>距离3.8km</span>
+                                <span class="mx-2">|</span>
+                                <i class="fa fa-clock-o mr-1"></i>
+                                <span>灵活课时</span>
+                            </div>
+                            <p class="text-neutral-600 text-sm mb-4 line-clamp-2">专业艺术教师团队，开设绘画、舞蹈、音乐等多种课程，培养孩子艺术素养和创造力。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-bold text-xl">¥80<span class="text-sm font-normal text-neutral-500">/课时</span></span>
+                                <a href="service-detail.html" class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-primary/90 transition-colors btn-hover">立即报名</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 查看更多按钮 -->
+                <div class="text-center mt-10">
+                    <a href="services.html" class="inline-flex items-center px-6 py-3 border border-primary text-primary rounded-full hover:bg-primary hover:text-white transition-colors btn-hover">
+                        查看更多服务
+                        <i class="fa fa-chevron-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 安全保障 -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">安全保障</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    <!-- 保障项 1：机构资质 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                            <i class="fa fa-certificate text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">机构资质</h3>
+                        <p class="text-neutral-600 text-sm">所有合作机构均经过严格审核，具备相关办学资质和营业执照，确保服务质量。</p>
+                    </div>
+                    
+                    <!-- 保障项 2：意外险 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                            <i class="fa fa-shield text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">意外险</h3>
+                        <p class="text-neutral-600 text-sm">所有参加托管和研学活动的孩子均购买意外险，全方位保障孩子安全。</p>
+                    </div>
+                    
+                    <!-- 保障项 3：实时动态 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                            <i class="fa fa-video-camera text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">实时动态</h3>
+                        <p class="text-neutral-600 text-sm">通过平台实时查看孩子在托管或研学活动中的状态，随时了解孩子情况。</p>
+                    </div>
+                    
+                    <!-- 保障项 4：专业师资 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                            <i class="fa fa-graduation-cap text-3xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">专业师资</h3>
+                        <p class="text-neutral-600 text-sm">所有教师和导师均经过严格筛选，具备相关专业背景和教学经验。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 家长评价 -->
+        <section class="py-12 bg-neutral-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">家长评价</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                    <!-- 评价 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-card">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-neutral-200 overflow-hidden mr-4">
+                                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="家长头像" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">李女士</h4>
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-neutral-600 text-sm">"孩子在阳光少年课后托管中心已经一个学期了，作业辅导很专业，老师很有耐心，孩子的学习成绩有了明显提升，非常满意！"</p>
+                        <p class="text-neutral-500 text-xs mt-4">2023-06-15</p>
+                    </div>
+                    
+                    <!-- 评价 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-card">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-neutral-200 overflow-hidden mr-4">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="家长头像" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">张先生</h4>
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-neutral-600 text-sm">"去年暑假给孩子报名了自然科学探索研学营，孩子回来后对科学产生了浓厚的兴趣，还经常给我们分享学到的知识，非常值得推荐！"</p>
+                        <p class="text-neutral-500 text-xs mt-4">2023-08-20</p>
+                    </div>
+                    
+                    <!-- 评价 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-card">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-neutral-200 overflow-hidden mr-4">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="家长头像" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">王女士</h4>
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-neutral-600 text-sm">"童星艺术培训中心的绘画课程很有趣，老师很有耐心，孩子很喜欢去上课。唯一的小缺点是教室有点小，其他都很满意。"</p>
+                        <p class="text-neutral-500 text-xs mt-4">2023-09-05</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">常见问题</h2>
+                
+                <div class="max-w-3xl mx-auto">
+                    <!-- 问题 1 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何选择适合孩子的托管或研学服务？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">您可以根据孩子的年龄、兴趣爱好、学习需求以及家庭位置等因素来选择适合的服务。我们的平台提供了详细的筛选功能，可以帮助您快速找到符合需求的托管或研学服务。同时，您也可以查看其他家长的评价和反馈，了解服务质量。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 2 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何报名和支付？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">报名流程非常简单：1. 注册并登录平台；2. 完善孩子信息；3. 选择心仪的服务并点击"立即报名"；4. 确认订单信息；5. 通过微信支付完成付款。支付成功后，您将收到订单确认信息，同时服务提供方也会收到通知并与您联系。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 3 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何查看孩子在托管或研学活动中的实时动态？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">登录平台后，进入"个人中心"-"实时动态"页面，您可以查看孩子在托管或研学活动中的照片、视频和文字更新。服务提供方会定期上传孩子的活动情况，让您随时了解孩子的状态。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 4 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">如何申请退款？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">如需申请退款，请登录平台，进入"个人中心"-"订单管理"，找到相应订单并点击"申请退款"按钮。根据服务类型和距离服务开始的时间，退款政策会有所不同。一般来说，服务开始前7天以上申请退款可获得全额退款，服务开始前3-7天可获得50%退款，服务开始前3天内不予退款。具体以各服务提供方的退款政策为准。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题 5 -->
+                    <div class="mb-4">
+                        <button class="faq-question w-full flex justify-between items-center bg-neutral-100 p-4 rounded-lg focus:outline-none">
+                            <span class="font-medium">平台如何保障孩子的安全？</span>
+                            <i class="fa fa-chevron-down text-neutral-500 transition-transform"></i>
+                        </button>
+                        <div class="faq-answer bg-white p-4 rounded-b-lg border-x border-b border-neutral-200 hidden">
+                            <p class="text-neutral-600">我们非常重视孩子的安全问题：1. 所有合作机构均经过严格审核，具备相关资质；2. 所有参加托管和研学活动的孩子均购买意外险；3. 服务提供方需定期上传孩子的活动动态；4. 研学活动配备专业导师和安全员；5. 托管中心安装监控设备，确保孩子安全。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我们 -->
+        <section class="py-12 bg-primary/10">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <div class="p-8 bg-primary text-white">
+                            <h2 class="text-2xl font-bold mb-6">联系我们</h2>
+                            <p class="mb-8">如果您有任何问题或建议，欢迎随时联系我们，我们将竭诚为您服务。</p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i class="fa fa-map-marker text-xl mt-1 mr-4"></i>
+                                    <p>北京市朝阳区建国路88号</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fa fa-phone text-xl mr-4"></i>
+                                    <p>400-123-4567</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fa fa-envelope text-xl mr-4"></i>
+                                    <p>contact@example.com</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fa fa-clock-o text-xl mr-4"></i>
+                                    <p>周一至周日 9:00-18:00</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 flex space-x-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                                    <i class="fa fa-weixin text-white"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                                    <i class="fa fa-weibo text-white"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                                    <i class="fa fa-qq text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold mb-6">在线咨询</h3>
+                            <form>
+                                <div class="mb-4">
+                                    <label for="name" class="block text-sm font-medium text-neutral-700 mb-1">姓名</label>
+                                    <input type="text" id="name" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的姓名">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="phone" class="block text-sm font-medium text-neutral-700 mb-1">电话</label>
+                                    <input type="tel" id="phone" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的电话">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="message" class="block text-sm font-medium text-neutral-700 mb-1">咨询内容</label>
+                                    <textarea id="message" rows="4" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的咨询内容"></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-primary text-white font-medium py-2 rounded-lg hover:bg-primary/90 transition-colors">提交</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="bg-neutral-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">关于我们</h3>
+                    <p class="text-neutral-400 text-sm">课后托管+研学服务平台致力于为家长提供优质的课后托管和研学服务，帮助孩子全面发展，让家长更放心。</p>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">服务商城</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">关于我们</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">常见问题</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 服务分类 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">服务分类</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">课后托管</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">假期研学</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">兴趣辅导</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">亲子活动</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">联系方式</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fa fa-phone mr-2 text-primary"></i>
+                            <span class="text-neutral-400">400-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope mr-2 text-primary"></i>
+                            <span class="text-neutral-400">contact@example.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker mr-2 text-primary"></i>
+                            <span class="text-neutral-400">北京市朝阳区建国路88号</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-neutral-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-neutral-500 text-sm mb-4 md:mb-0">© 2023 课后托管+研学服务平台. 保留所有权利.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weixin text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weibo text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-qq text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 轮播图功能
+        (function() {
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            const controls = document.querySelectorAll('.carousel-control');
+            let currentIndex = 0;
+            let interval;
+            
+            // 初始化轮播图
+            function initCarousel() {
+                showSlide(0);
+                startAutoSlide();
+                
+                // 点击指示器切换轮播图
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        showSlide(index);
+                        resetAutoSlide();
+                    });
+                });
+                
+                // 点击控制按钮切换轮播图
+                controls.forEach(control => {
+                    control.addEventListener('click', () => {
+                        const direction = control.dataset.direction;
+                        if (direction === 'prev') {
+                            showSlide(currentIndex - 1);
+                        } else {
+                            showSlide(currentIndex + 1);
+                        }
+                        resetAutoSlide();
+                    });
+                });
+            }
+            
+            // 显示指定索引的轮播图
+            function showSlide(index) {
+                // 处理索引边界
+                if (index < 0) {
+                    index = carouselItems.length - 1;
+                } else if (index >= carouselItems.length) {
+                    index = 0;
+                }
+                
+                // 隐藏所有轮播图
+                carouselItems.forEach(item => {
+                    item.style.opacity = '0';
+                });
+                
+                // 显示当前轮播图
+                carouselItems[index].style.opacity = '1';
+                
+                // 更新指示器状态
+                indicators.forEach((indicator, i) => {
+                    if (i === index) {
+                        indicator.classList.add('bg-white');
+                        indicator.classList.remove('bg-white/50');
+                    } else {
+                        indicator.classList.remove('bg-white');
+                        indicator.classList.add('bg-white/50');
+                    }
+                });
+                
+                currentIndex = index;
+            }
+            
+            // 自动轮播
+            function startAutoSlide() {
+                interval = setInterval(() => {
+                    showSlide(currentIndex + 1);
+                }, 5000);
+            }
+            
+            // 重置自动轮播
+            function resetAutoSlide() {
+                clearInterval(interval);
+                startAutoSlide();
+            }
+            
+            // 初始化轮播图
+            initCarousel();
+        })();
+        
+        // 热门推荐排序功能
+        (function() {
+            const sortButtons = document.querySelectorAll('.sort-btn');
+            const recommendations = document.getElementById('recommendations');
+            
+            // 模拟不同排序的数据
+            const sortedData = {
+                popular: [
+                    {
+                        title: '阳光少年课后托管中心',
+                        type: '托管',
+                        rating: '4.9分',
+                        distance: '距离2.5km',
+                        students: '在读200+',
+                        description: '专业师资，小班教学，提供作业辅导、兴趣培养、营养晚餐和安全接送服务。',
+                        price: '¥1280',
+                        priceUnit: '/月起',
+                        image: 'https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f9c1618de91049948ad20698842ef9ea~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=KBC5h9s1UOWqWaWSwd040OVeR6U%3D'
+                    },
+                    {
+                        title: '自然科学探索研学营',
+                        type: '研学',
+                        rating: '4.8分',
+                        distance: '暑期7天6晚',
+                        students: '限额30人',
+                        description: '专业自然科学导师带队，探索森林生态系统，进行标本采集和实验，培养科学思维。',
+                        price: '¥3680',
+                        priceUnit: '/人',
+                        image: 'https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/ed9502adbbe74cbc8069ec2999bf5b9b~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=VEb1jr76MRbc0X0zBPHkdtoy8Fs%3D'
+                    },
+                    {
+                        title: '童星艺术培训中心',
+                        type: '兴趣',
+                        rating: '4.7分',
+                        distance: '距离3.8km',
+                        students: '灵活课时',
+                        description: '专业艺术教师团队，开设绘画、舞蹈、音乐等多种课程，培养孩子艺术素养和创造力。',
+                        price: '¥80',
+                        priceUnit: '/课时',
+                        image: 'https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/2942bb4b90f5435ca35e1fff3f149260~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755542&x-signature=wG3%2B8mOVeLQswFGCzkU25P4EdJc%3D'
+                    }
+                ],
+                distance: [
+                    {
+                        title: '阳光少年课后托管中心',
+                        type: '托管',
+                        rating: '4.9分',
+                        distance: '距离2.5km',
+                        students: '在读200+',
+                        description: '专业师资，小班教学，提供作业辅导、兴趣培养、营养晚餐和安全接送服务。',
+                        price: '¥1280',
+                        priceUnit: '/月起',
+                        image: 'https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f9c1618de91049948ad20698842ef9ea~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=KBC5h9s1UOWqWaWSwd040OVeR6U%3D'
+                    },
+                    {
+                        title: '童星艺术培训中心',
+                        type: '兴趣',
+                        rating: '4.7分',
+                        distance: '距离3.8km',
+                        students: '灵活课时',
+                        description: '专业艺术教师团队，开设绘画、舞蹈、音乐等多种课程，培养孩子艺术素养和创造力。',
+                        price: '¥80',
+                        priceUnit: '/课时',
+                        image: 'https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/2942bb4b90f5435ca35e1fff3f149260~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755542&x-signature=wG3%2B8mOVeLQswFGCzkU25P4EdJc%3D'
+                    },
+                    {
+                        title: '未来科学家实验室',
+                        type: '兴趣',
+                        rating: '4.6分',
+                        distance: '距离5.2km',
+                        students: '小班教学',
+                        description: '趣味科学实验课程，激发孩子科学兴趣，培养动手能力和科学思维。',
+                        price: '¥120',
+                        priceUnit: '/课时',
+                        image: 'https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/ed9502adbbe74cbc8069ec2999bf5b9b~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=VEb1jr76MRbc0X0zBPHkdtoy8Fs%3D'
+                    }
+                ],
+                rating: [
+                    {
+                        title: '阳光少年课后托管中心',
+                        type: '托管',
+                        rating: '4.9分',
+                        distance: '距离2.5km',
+                        students: '在读200+',
+                        description: '专业师资，小班教学，提供作业辅导、兴趣培养、营养晚餐和安全接送服务。',
+                        price: '¥1280',
+                        priceUnit: '/月起',
+                        image: 'https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f9c1618de91049948ad20698842ef9ea~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=KBC5h9s1UOWqWaWSwd040OVeR6U%3D'
+                    },
+                    {
+                        title: '自然科学探索研学营',
+                        type: '研学',
+                        rating: '4.8分',
+                        distance: '暑期7天6晚',
+                        students: '限额30人',
+                        description: '专业自然科学导师带队，探索森林生态系统，进行标本采集和实验，培养科学思维。',
+                        price: '¥3680',
+                        priceUnit: '/人',
+                        image: 'https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/ed9502adbbe74cbc8069ec2999bf5b9b~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755541&x-signature=VEb1jr76MRbc0X0zBPHkdtoy8Fs%3D'
+                    },
+                    {
+                        title: '童星艺术培训中心',
+                        type: '兴趣',
+                        rating: '4.7分',
+                        distance: '距离3.8km',
+                        students: '灵活课时',
+                        description: '专业艺术教师团队，开设绘画、舞蹈、音乐等多种课程，培养孩子艺术素养和创造力。',
+                        price: '¥80',
+                        priceUnit: '/课时',
+                        image: 'https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/2942bb4b90f5435ca35e1fff3f149260~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755542&x-signature=wG3%2B8mOVeLQswFGCzkU25P4EdJc%3D'
+                    }
+                ]
+            };
+            
+            // 点击排序按钮切换排序方式
+            sortButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // 更新按钮样式
+                    sortButtons.forEach(btn => {
+                        btn.classList.remove('bg-primary', 'text-white');
+                        btn.classList.add('bg-white', 'text-neutral-600', 'hover:bg-neutral-200');
+                    });
+                    button.classList.remove('bg-white', 'text-neutral-600', 'hover:bg-neutral-200');
+                    button.classList.add('bg-primary', 'text-white');
+                    
+                    // 获取排序方式
+                    const sortType = button.dataset.sort;
+                    
+                    // 更新推荐内容
+                    updateRecommendations(sortType);
+                });
+            });
+            
+            // 更新推荐内容
+            function updateRecommendations(sortType) {
+                const data = sortedData[sortType];
+                
+                // 清空推荐区域
+                recommendations.innerHTML = '';
+                
+                // 添加推荐项
+                data.forEach(item => {
+                    const typeClass = item.type === '托管' ? 'bg-primary' : (item.type === '研学' ? 'bg-secondary' : 'bg-primary');
+                    
+                    const card = document.createElement('div');
+                    card.className = 'bg-white rounded-xl overflow-hidden shadow-card card-hover';
+                    card.innerHTML = `
+                        <div class="relative">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover">
+                            <span class="absolute top-3 left-3 ${typeClass} text-white text-xs font-medium px-2 py-1 rounded">${item.type}</span>
+                            <span class="absolute top-3 right-3 bg-white text-primary text-xs font-medium px-2 py-1 rounded-full">${item.rating}</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-bold mb-2">${item.title}</h3>
+                            <div class="flex items-center text-sm text-neutral-500 mb-3">
+                                <i class="fa fa-map-marker mr-1"></i>
+                                <span>${item.distance}</span>
+                                <span class="mx-2">|</span>
+                                <i class="fa fa-users mr-1"></i>
+                                <span>${item.students}</span>
+                            </div>
+                            <p class="text-neutral-600 text-sm mb-4 line-clamp-2">${item.description}</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-bold text-xl">${item.price}<span class="text-sm font-normal text-neutral-500">${item.priceUnit}</span></span>
+                                <a href="service-detail.html" class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-primary/90 transition-colors btn-hover">立即报名</a>
+                            </div>
+                        </div>
+                    `;
+                    
+                    recommendations.appendChild(card);
+                });
+            }
+        })();
+        
+        // 常见问题折叠功能
+        (function() {
+            const questions = document.querySelectorAll('.faq-question');
+            
+            questions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('i');
+                    
+                    // 切换回答显示/隐藏
+                    answer.classList.toggle('hidden');
+                    
+                    // 切换图标旋转
+                    if (answer.classList.contains('hidden')) {
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        })();
+        
+        // 返回顶部按钮
+        (function() {
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            // 监听滚动事件
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            // 点击返回顶部
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        })();
+        
+        // 滚动动画
+        (function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+            
+            // 观察需要动画的元素
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        })();
+    </script>
+</body>
+</html>
