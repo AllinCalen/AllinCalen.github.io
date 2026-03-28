@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理后台 - 登录</title>
+    <title>登录/注册 - 优教甄选、童行无忧</title>
     <!-- Tailwind CSS v3 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -14,7 +14,8 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#2E5BFF', // 深蓝色
+                        primary: '#FF9F45', // 暖橙色
+                        secondary: '#64D299', // 浅草绿
                         neutral: {
                             100: '#F5F7FA', // 浅灰色
                             200: '#E4E7EB',
@@ -29,6 +30,10 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
                     }
                 }
             }
@@ -36,122 +41,247 @@
     </script>
     <style type="text/tailwindcss">
         @layer utilities {
-            .bg-gradient-primary {
-                background: linear-gradient(135deg, #2E5BFF 0%, #1E3A8A 100%);
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
             .transition-all-300 {
                 transition: all 300ms ease-in-out;
             }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+            }
         }
     </style>
 </head>
-<body class="bg-neutral-100 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="w-full max-w-md">
-        <!-- Logo -->
-        <div class="text-center mb-8">
-            <img src="https://p6-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/711628490c9d434cbd77361a4dfd757b~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202603221511373D5EB5A8DA585AB365A8&rrcfp=f06b921b&x-expires=1776755571&x-signature=9Te4Fzbd739WEMAIoLl6ZuJfRHc%3D" alt="课后托管+研学服务平台" class="h-16 w-auto mx-auto">
-            <h2 class="mt-2 text-2xl font-bold text-neutral-900">管理后台</h2>
-            <p class="mt-1 text-sm text-neutral-600">请登录您的账号</p>
-        </div>
-        
-        <!-- 登录表单 -->
-        <div class="bg-white rounded-lg shadow-lg p-8">
-            <form id="login-form" class="space-y-6">
-                <!-- 用户名 -->
-                <div>
-                    <label for="username" class="block text-sm font-medium text-neutral-700 mb-1">用户名</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fa fa-user text-neutral-400"></i>
-                        </div>
-                        <input type="text" id="username" name="username" class="w-full pl-10 pr-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入用户名" required>
-                    </div>
-                </div>
-                
-                <!-- 密码 -->
-                <div>
-                    <label for="password" class="block text-sm font-medium text-neutral-700 mb-1">密码</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fa fa-lock text-neutral-400"></i>
-                        </div>
-                        <input type="password" id="password" name="password" class="w-full pl-10 pr-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入密码" required>
-                        <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 hover:text-neutral-600">
-                            <i class="fa fa-eye-slash"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 记住我 -->
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="remember-me" name="remember-me" class="h-4 w-4 text-primary focus:ring-primary border-neutral-300 rounded">
-                        <label for="remember-me" class="ml-2 block text-sm text-neutral-700">记住我</label>
-                    </div>
-                    <a href="#" class="text-sm text-primary hover:text-primary/80">忘记密码?</a>
-                </div>
-                
-                <!-- 登录按钮 -->
-                <div>
-                    <button type="submit" class="w-full bg-gradient-primary text-white font-medium py-2 px-4 rounded-md hover:opacity-90 transition-all-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                        登录
-                    </button>
-                </div>
-            </form>
-        </div>
-        
-        <!-- 错误提示 -->
-        <div id="error-message" class="mt-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm hidden">
+<body class="font-sans bg-neutral-100 text-neutral-800">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Logo -->
             <div class="flex items-center">
-                <i class="fa fa-exclamation-circle mr-2"></i>
-                <span id="error-text"></span>
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=education%20logo%20with%20open%20book%20and%20blue%20road%20inside%2C%20yellow%20border%2C%20clean%20design%2C%20no%20text&image_size=square" alt="优教甄选、童行无忧" class="h-10 w-auto">
+                <span class="ml-2 text-xl font-bold text-primary hidden sm:block">优教甄选、童行无忧</span>
+            </div>
+            
+            <!-- 桌面端导航菜单 -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-neutral-600 hover:text-primary transition-colors">首页</a>
+                <a href="services.html" class="text-neutral-600 hover:text-primary transition-colors">服务商城</a>
+                <a href="about.html" class="text-neutral-600 hover:text-primary transition-colors">关于我们</a>
+                <a href="faq.html" class="text-neutral-600 hover:text-primary transition-colors">常见问题</a>
+            </div>
+            
+            <!-- 用户操作区 -->
+            <div class="flex items-center space-x-4">
+                <a href="search.html" class="text-neutral-600 hover:text-primary transition-colors">
+                    <i class="fa fa-search text-lg"></i>
+                </a>
+                <a href="notifications.html" class="text-neutral-600 hover:text-primary transition-colors">
+                    <i class="fa fa-bell text-lg"></i>
+                </a>
+                <a href="login.html" class="hidden sm:flex items-center space-x-1 text-primary font-medium">
+                    <i class="fa fa-user-circle text-lg"></i>
+                    <span>登录/注册</span>
+                </a>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-button" class="md:hidden text-neutral-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-neutral-200">
+            <div class="container mx-auto px-4 py-2">
+                <a href="index.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">首页</a>
+                <a href="services.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">服务商城</a>
+                <a href="about.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">关于我们</a>
+                <a href="faq.html" class="block py-2 text-neutral-600 hover:text-primary transition-colors">常见问题</a>
+                <a href="login.html" class="block py-2 text-primary font-medium">登录/注册</a>
             </div>
         </div>
-    </div>
+    </header>
+
+    <main>
+        <!-- 登录/注册表单 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-md mx-auto bg-white rounded-xl shadow-card overflow-hidden">
+                    <!-- 表单切换 -->
+                    <div class="flex">
+                        <button id="login-tab" class="flex-1 py-4 text-center font-medium text-primary border-b-2 border-primary">登录</button>
+                        <button id="register-tab" class="flex-1 py-4 text-center font-medium text-neutral-500">注册</button>
+                    </div>
+                    
+                    <!-- 登录表单 -->
+                    <div id="login-form" class="p-6">
+                        <h2 class="text-xl font-bold mb-6 text-center">欢迎回来</h2>
+                        <form>
+                            <div class="mb-4">
+                                <label for="login-phone" class="block text-sm font-medium text-neutral-700 mb-1">手机号</label>
+                                <input type="tel" id="login-phone" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入手机号" required>
+                            </div>
+                            <div class="mb-6">
+                                <label for="login-password" class="block text-sm font-medium text-neutral-700 mb-1">密码</label>
+                                <input type="password" id="login-password" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入密码" required>
+                                <div class="flex justify-end mt-2">
+                                    <a href="#" class="text-sm text-primary hover:underline">忘记密码？</a>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full bg-primary text-white font-medium py-3 rounded-lg hover:bg-primary/90 transition-colors mb-4">登录</button>
+                            <div class="flex items-center justify-center mb-4">
+                                <span class="text-neutral-500 text-sm">或使用以下方式登录</span>
+                            </div>
+                            <div class="flex justify-center space-x-4">
+                                <button type="button" class="w-10 h-10 rounded-full bg-[#07C160] text-white flex items-center justify-center hover:bg-[#05A853] transition-colors">
+                                    <i class="fa fa-weixin"></i>
+                                </button>
+                                <button type="button" class="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center hover:bg-[#1A91DA] transition-colors">
+                                    <i class="fa fa-qq"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- 注册表单 -->
+                    <div id="register-form" class="p-6 hidden">
+                        <h2 class="text-xl font-bold mb-6 text-center">创建账号</h2>
+                        <form>
+                            <div class="mb-4">
+                                <label for="register-name" class="block text-sm font-medium text-neutral-700 mb-1">姓名</label>
+                                <input type="text" id="register-name" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入姓名" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="register-phone" class="block text-sm font-medium text-neutral-700 mb-1">手机号</label>
+                                <div class="flex space-x-2">
+                                    <input type="tel" id="register-phone" class="flex-1 px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入手机号" required>
+                                    <button type="button" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">获取验证码</button>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="register-code" class="block text-sm font-medium text-neutral-700 mb-1">验证码</label>
+                                <input type="text" id="register-code" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入验证码" required>
+                            </div>
+                            <div class="mb-6">
+                                <label for="register-password" class="block text-sm font-medium text-neutral-700 mb-1">设置密码</label>
+                                <input type="password" id="register-password" class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请设置密码" required>
+                            </div>
+                            <div class="flex items-start mb-6">
+                                <input type="checkbox" id="agree" class="mt-1 mr-2" required>
+                                <label for="agree" class="text-sm text-neutral-600">我已阅读并同意<a href="#" class="text-primary hover:underline">《用户协议》</a>和<a href="#" class="text-primary hover:underline">《隐私政策》</a></label>
+                            </div>
+                            <button type="submit" class="w-full bg-primary text-white font-medium py-3 rounded-lg hover:bg-primary/90 transition-colors mb-4">注册</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="bg-neutral-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">关于我们</h3>
+                    <p class="text-neutral-400 text-sm">优教甄选、童行无忧致力于为家长提供优质的课后托管和研学服务，帮助孩子全面发展，让家长更放心。</p>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-neutral-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="services.html" class="text-neutral-400 hover:text-white transition-colors">服务商城</a></li>
+                        <li><a href="about.html" class="text-neutral-400 hover:text-white transition-colors">关于我们</a></li>
+                        <li><a href="faq.html" class="text-neutral-400 hover:text-white transition-colors">常见问题</a></li>
+                        <li><a href="contact.html" class="text-neutral-400 hover:text-white transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 服务分类 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">服务分类</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="services.html?filter=托管" class="text-neutral-400 hover:text-white transition-colors">课后托管</a></li>
+                        <li><a href="services.html?filter=研学" class="text-neutral-400 hover:text-white transition-colors">假期研学</a></li>
+                        <li><a href="services.html?filter=兴趣" class="text-neutral-400 hover:text-white transition-colors">兴趣辅导</a></li>
+                        <li><a href="services.html?filter=亲子" class="text-neutral-400 hover:text-white transition-colors">亲子活动</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">联系方式</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fa fa-phone mr-2 text-primary"></i>
+                            <span class="text-neutral-400">13894965361</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope mr-2 text-primary"></i>
+                            <span class="text-neutral-400">2186977139@qq.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker mr-2 text-primary"></i>
+                            <span class="text-neutral-400">吉林省吉林市永吉县吉桦东路1号</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-neutral-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-neutral-500 text-sm mb-4 md:mb-0">© 2023 优教甄选、童行无忧. 保留所有权利.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weixin text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-weibo text-lg"></i>
+                    </a>
+                    <a href="#" class="text-neutral-500 hover:text-white transition-colors">
+                        <i class="fa fa-qq text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- JavaScript -->
     <script>
-        // 切换密码可见性
-        document.getElementById('toggle-password').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
-            const icon = this.querySelector('i');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            }
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
         });
         
-        // 登录表单提交
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('error-message');
-            const errorText = document.getElementById('error-text');
-            
-            // 简单的表单验证
-            if (!username || !password) {
-                errorText.textContent = '请输入用户名和密码';
-                errorMessage.classList.remove('hidden');
-                return;
-            }
-            
-            // 模拟登录验证（实际项目中应该发送请求到服务器）
-            if (username === 'admin' && password === 'admin123') {
-                // 登录成功，跳转到管理后台首页
-                window.location.href = 'dashboard.html';
-            } else {
-                // 登录失败，显示错误信息
-                errorText.textContent = '用户名或密码错误';
-                errorMessage.classList.remove('hidden');
-            }
+        // 登录/注册表单切换
+        const loginTab = document.getElementById('login-tab');
+        const registerTab = document.getElementById('register-tab');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        
+        loginTab.addEventListener('click', function() {
+            loginTab.classList.add('text-primary', 'border-primary');
+            loginTab.classList.remove('text-neutral-500');
+            registerTab.classList.remove('text-primary', 'border-primary');
+            registerTab.classList.add('text-neutral-500');
+            loginForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+        });
+        
+        registerTab.addEventListener('click', function() {
+            registerTab.classList.add('text-primary', 'border-primary');
+            registerTab.classList.remove('text-neutral-500');
+            loginTab.classList.remove('text-primary', 'border-primary');
+            loginTab.classList.add('text-neutral-500');
+            registerForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
         });
     </script>
 </body>
