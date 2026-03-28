@@ -1,0 +1,13 @@
+<div class="flex items-center">
+    <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- 蓝色圆形背景 -->
+        <circle cx="50" cy="50" r="45" fill="#3B82F6"/>
+        <!-- 黄色书本/教育元素 -->
+        <path d="M30 40 L70 40 L65 60 L35 60 Z" fill="#FBBF24"/>
+        <!-- 黄色书本打开效果 -->
+        <path d="M50 40 L65 60 M50 40 L35 60" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+        <!-- 黄色星星 -->
+        <path d="M50 25 L55 35 L65 35 L58 42 L60 52 L50 47 L40 52 L42 42 L35 35 L45 35 Z" fill="#FBBF24"/>
+    </svg>
+    <span class="ml-2 text-xl font-bold text-primary hidden sm:block">优教甄选、童行无忧</span>
+</div>
