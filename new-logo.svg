@@ -1,0 +1,4 @@
+<div class="flex items-center">
+    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=logo%20for%20education%20platform%20with%20open%20book%20and%20road%20inside%2C%20blue%20and%20yellow%20colors%2C%20Chinese%20text%20%E4%BC%98%E6%95%99%E9%87%91%E9%80%89%20%E7%AB%A5%E8%A1%8C%E6%97%A0%E5%BF%A7%2C%20clean%20design&image_size=square" alt="优教甄选、童行无忧" class="h-10 w-auto">
+    <span class="ml-2 text-xl font-bold text-primary hidden sm:block">优教甄选、童行无忧</span>
+</div>
